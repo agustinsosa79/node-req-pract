@@ -44,10 +44,27 @@ app.post('/usuarios', (req, res) => {
 })
 
 app.put('/usuarios/:id', (req, res) => {
+    const id = parseInt(req.params.id)
+    const  datosActualizados = req.body
+    const index = usuarios.findIndex(u => u.id === id)
 
+    if(index !== -1){
+        usuarios[index] = {...usuarios[index], ...datosActualizados}
+
+        res.send(usuarios[index])
+    } else {
+        res.status(404)
+        res.json({message : "no se encuentra el id"})
+    }
 })
 
-app.delete('/usuarios/:id', (req, res) => {})
+app.delete('/usuarios/:id', (req, res) => {
+    const id = parseInt(req.params.id)
+    
+    usuarios = usuarios.filter(u => u.id !== id)
+
+    res.json({message : "usuario eliminado"})
+})
 
 app.listen(PORT, () => {
     console.log(`estas escuchando el puerto http://localhost:${PORT}`);
