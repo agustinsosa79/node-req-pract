@@ -13,7 +13,7 @@ let usuarios = [
 
 
 app.get('/', (req, res) => {
-    res.send('<h1>API DE USUARIOS FUNCIONANDO</h1>')
+    res.sendFile('/app.jsx')
 })
 
 app.get('/usuarios', (req, res) => {
@@ -53,8 +53,7 @@ app.put('/usuarios/:id', (req, res) => {
 
         res.send(usuarios[index])
     } else {
-        res.status(404)
-        res.json({message : "no se encuentra el id"})
+        res.status(404).json({message : "no se encuentra el id"})
     }
 })
 
